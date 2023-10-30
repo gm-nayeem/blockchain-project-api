@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Product = require('../models/BlockchainProduct');
 const barcodeGenerator = require('../utils/barcodeGenerator');
 const { v4: uuidv4 } = require('uuid');
 
@@ -19,7 +19,7 @@ const createProduct = async (req, res, next) => {
             serialNumber = arr[arr.length - 1];
         }
 
-        const barcodeImageBuffer = barcodeGenerator(serialNumber);
+        // const barcodeImageBuffer = barcodeGenerator(serialNumber);
 
         const productImg = 'https://static.ohsogo.com/media/catalog/product/cache/e8e097f5396d8dde6be5d5b8f2e70ffa/c/l/clear-cool-sport-menthol_180ml_fop.jpg';
 
@@ -29,7 +29,7 @@ const createProduct = async (req, res, next) => {
                 price, weight, productImg, origin
             },
             tracking: {
-                barcode: barcodeImageBuffer.toString('base64'),
+                barcode: "barcodeImageBuffer.toString('base64')",
                 serialNumber
             },
             vendorDetails: {

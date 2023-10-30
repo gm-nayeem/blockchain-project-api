@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ProductSchema = mongoose.Schema(
+const BlockchainProductSchema = mongoose.Schema(
     {
         basicDetails: {
             productName: { type: String },
@@ -36,4 +36,4 @@ const ProductSchema = mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("Product", ProductSchema);
+module.exports = mongoose.model("Blockchain-Product", BlockchainProductSchema);
