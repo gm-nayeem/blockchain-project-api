@@ -61,9 +61,10 @@ const createProduct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
     const id = req.params.id;
+
     try {
-        await Product.updateMany(
-            { serialNumber: id },
+        await Product.updateOne(
+            { 'tracking.serialNumber': id },
             {
                 $set: { sellStatus: 'sold' }
             },
