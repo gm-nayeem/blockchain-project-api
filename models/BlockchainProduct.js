@@ -16,6 +16,15 @@ const BlockchainProductSchema = mongoose.Schema(
             barcode: { type: String },
             serialNumber: { type: String },
         },
+        sellStatus: {
+            type: String,
+            enum: ['available', 'sold'],
+            default: 'available',
+        },
+        expiration: {
+            manufacturingDate: { type: String },
+            expirationDate: { type: String }
+        },
         vendorDetails: {
             vendorName: { type: String },
             vendorCode: { type: String },
@@ -23,10 +32,6 @@ const BlockchainProductSchema = mongoose.Schema(
                 address: { type: String },
                 phone: { type: String }
             }
-        },
-        expiration: {
-            manufacturingDate: { type: String },
-            expirationDate: { type: String }
         },
         compilanceInfo: {
             compilanceCertificate: { type: String },

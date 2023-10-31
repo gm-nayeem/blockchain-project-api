@@ -1,5 +1,5 @@
 const Product = require('../models/BlockchainProduct');
-const barcodeGenerator = require('../utils/barcodeGenerator');
+// const barcodeGenerator = require('../utils/barcodeGenerator');
 const { v4: uuidv4 } = require('uuid');
 
 const createProduct = async (req, res, next) => {
@@ -65,7 +65,7 @@ const updateProduct = async (req, res, next) => {
         await Product.updateMany(
             { serialNumber: id },
             {
-                $set: req.body,
+                $set: { sellStatus: 'sold' }
             },
             { new: true }
         );
