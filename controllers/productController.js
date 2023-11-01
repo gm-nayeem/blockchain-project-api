@@ -1,13 +1,12 @@
 const Product = require('../models/BlockchainProduct');
-// const barcodeGenerator = require('../utils/barcodeGenerator');
+const barcodeGenerator = require('../utils/barcodeGenerator');
 const { v4: uuidv4 } = require('uuid');
 
 const createProduct = async (req, res, next) => {
     try {
         const {
             productName, description, category, brand, price, weight,
-            origin, vendorName, vendorCode, address, phone,
-            compilanceCertificate, safetyInfo, manufacturingDate, expirationDate
+            origin, manufacturingDate, expirationDate, productImg
         } = req.body;
 
         let serialNumber;
@@ -19,9 +18,7 @@ const createProduct = async (req, res, next) => {
             serialNumber = arr[arr.length - 1];
         }
 
-        // const barcodeImageBuffer = barcodeGenerator(serialNumber);
-
-        const productImg = 'https://static.ohsogo.com/media/catalog/product/cache/e8e097f5396d8dde6be5d5b8f2e70ffa/c/l/clear-cool-sport-menthol_180ml_fop.jpg';
+        const barcodeImageBuffer = barcodeGenerator(serialNumber);
 
         const newProductObj = {
             basicDetails: {
@@ -29,21 +26,21 @@ const createProduct = async (req, res, next) => {
                 price, weight, productImg, origin
             },
             tracking: {
-                barcode: "barcodeImageBuffer.toString('base64')",
+                barcode: barcodeImageBuffer.toString('base64'),
                 serialNumber
-            },
-            vendorDetails: {
-                vendorName, vendorCode,
-                vendorContactInfo: {
-                    address, phone
-                }
             },
             expiration: {
                 manufacturingDate, expirationDate
             },
-            compilanceInfo: {
-                compilanceCertificate, safetyInfo
-            }
+            // vendorDetails: {
+            //     vendorName, vendorCode,
+            //     vendorContactInfo: {
+            //         address, phone
+            //     }
+            // },
+            // compilanceInfo: {
+            //     compilanceCertificate, safetyInfo
+            // }
         }
 
         const newProduct = new Product(newProductObj);
@@ -108,7 +105,7 @@ const getSingleProduct = async (req, res, next) => {
 
 const getAllProduct = async (req, res, next) => {
     try {
-        const products = await Product.find({});
+        const products = await Product.find({}).sort({ createdAt: -1 });
         res.status(200).json({
             success: true,
             products

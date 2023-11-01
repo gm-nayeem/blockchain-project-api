@@ -26,16 +26,16 @@ const BlockchainProductSchema = mongoose.Schema(
             expirationDate: { type: String }
         },
         vendorDetails: {
-            vendorName: { type: String },
-            vendorCode: { type: String },
+            vendorName: { type: String, default: 'vendor name' },
+            vendorCode: { type: String, default: 'vendor code' },
             vendorContactInfo: {
-                address: { type: String },
-                phone: { type: String }
+                address: { type: String, default: 'vendor address' },
+                phone: { type: String, default: 'contact number' },
             }
         },
         compilanceInfo: {
-            compilanceCertificate: { type: String },
-            safetyInfo: { type: String }
+            compilanceCertificate: { type: String, default: 'compilance certificate' },
+            safetyInfo: { type: String, default: 'safety info' },
         }
     },
     { timestamps: true }
