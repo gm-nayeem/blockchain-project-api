@@ -1,5 +1,5 @@
 const Product = require('../models/BlockchainProduct');
-const barcodeGenerator = require('../utils/barcodeGenerator');
+// const barcodeGenerator = require('../utils/barcodeGenerator');
 const { v4: uuidv4 } = require('uuid');
 
 const createProduct = async (req, res, next) => {
@@ -18,7 +18,7 @@ const createProduct = async (req, res, next) => {
             serialNumber = arr[arr.length - 1];
         }
 
-        const barcodeImageBuffer = barcodeGenerator(serialNumber);
+        // const barcodeImageBuffer = barcodeGenerator(serialNumber);
 
         const newProductObj = {
             basicDetails: {
@@ -26,7 +26,7 @@ const createProduct = async (req, res, next) => {
                 price, weight, productImg, origin
             },
             tracking: {
-                barcode: barcodeImageBuffer.toString('base64'),
+                barcode: "barcodeImageBuffer.toString('base64')",
                 serialNumber
             },
             expiration: {
