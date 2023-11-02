@@ -76,10 +76,31 @@ const updateProduct = async (req, res, next) => {
     }
 }
 
+const undoProduct = async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        await Product.updateMany(
+            { 'tracking.serialNumber': id },
+            {
+                $set: { sellStatus: 'available' }
+            },
+            { new: true }
+        );
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully"
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 const deleteProduct = async (req, res, next) => {
     const id = req.params.id;
+
     try {
-        await Product.deleteOne({ serialNumber: id });
+        await Product.deleteOne({ 'tracking.serialNumber': id });
         res.status(200).json({
             success: true,
             message: "Product has been deleted!"
@@ -120,6 +141,7 @@ module.exports = {
     createProduct,
     deleteProduct,
     updateProduct,
+    undoProduct,
     getAllProduct,
     getSingleProduct
 }
